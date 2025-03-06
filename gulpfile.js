@@ -35,15 +35,32 @@ let lintJS = () => {
 };
 
 let transpileJSForDev = () => {
-    return src('js/*.js')
+    return src(`js/*.js`)
         .pipe(babel())
-        .on('error', (err) => {
-            console.error('Babel error:', err);
+        .on(`error`, (err) => {
+            console.error(`Babel error:`, err);
         })
-        .pipe(dest('./temp/js'))
-        .on('end', () => {
-            console.log('Transpilation complete. Files saved to ./temp/js');
+        .pipe(dest(`./temp/js`))
+        .on(`end`, () => {
+            console.log(`Transpilation complete. Files saved to ./temp/js`);
         });
+};
+
+let compressImages = async () => {
+    const imageCompressor = (await import(`gulp-image`)).default;
+    return src(`img/**/*`)
+        .pipe(imageCompressor({
+            optipng: [`-i 1`, `-strip all`, `-fix`, `-o7`, `-force`],
+            pngquant: [`--speed=1`, `--force`, 256],
+            zopflipng: [`-y`, `--lossy_8bit`, `--lossy_transparent`],
+            jpegRecompress: [`--strip`, `--quality`, `medium`, `--min`, 40,
+                `--max`, 80],
+            mozjpeg: [`-optimize`, `-progressive`],
+            gifsicle: [`--optimize`],
+            svgo: [`--enable`, `cleanupIDs`, `--disable`, `convertColors`],
+            quiet: false
+        }))
+        .pipe(dest(`prod/img`));
 };
 
 let serve = () => {
@@ -78,4 +95,5 @@ exports.lintCSS = lintCSS;
 exports.validateHTML = validateHTML;
 exports.lintJS = lintJS;
 exports.transpileJSForDev = transpileJSForDev;
+exports.compressImages = compressImages;
 exports.serve = serve;
