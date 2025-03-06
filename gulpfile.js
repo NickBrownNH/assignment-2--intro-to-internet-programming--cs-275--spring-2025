@@ -4,6 +4,7 @@ const { src, dest, series, watch } = require(`gulp`),
     htmlValidator = require(`gulp-html`),
     jsLinter = require(`gulp-eslint`),
     browserSync = require(`browser-sync`),
+    babel = require(`gulp-babel`),
     reload = browserSync.reload;
 
 let compressHTML = () => {
@@ -33,6 +34,18 @@ let lintJS = () => {
         .pipe(jsLinter.formatEach(`compact`));
 };
 
+let transpileJSForDev = () => {
+    return src('js/*.js')
+        .pipe(babel())
+        .on('error', (err) => {
+            console.error('Babel error:', err);
+        })
+        .pipe(dest('./temp/js'))
+        .on('end', () => {
+            console.log('Transpilation complete. Files saved to ./temp/js');
+        });
+};
+
 let serve = () => {
     browserSync({
         notify: true,
@@ -47,7 +60,7 @@ let serve = () => {
         }
     });
 
-    watch(`js/*.js`, series(lintJS))
+    watch(`js/*.js`, series(lintJS, transpileJSForDev))
         .on(`change`, reload);
 
     watch(`styles/**/*.css`, lintCSS)
@@ -64,4 +77,5 @@ exports.compressHTML = compressHTML;
 exports.lintCSS = lintCSS;
 exports.validateHTML = validateHTML;
 exports.lintJS = lintJS;
+exports.transpileJSForDev = transpileJSForDev;
 exports.serve = serve;
