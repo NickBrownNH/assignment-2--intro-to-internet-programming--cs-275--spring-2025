@@ -5,6 +5,8 @@ const { src, dest, series, watch } = require(`gulp`),
     jsLinter = require(`gulp-eslint`),
     browserSync = require(`browser-sync`),
     babel = require(`gulp-babel`),
+    jsCompressor = require(`gulp-uglify`),
+    cleanCSS = require(`gulp-clean-css`),
     reload = browserSync.reload;
 
 let compressHTML = () => {
@@ -63,6 +65,19 @@ let compressImages = async () => {
         .pipe(dest(`prod/img`));
 };
 
+let transpileJSForProd = () => {
+    return src(`js/*.js`)
+        .pipe(babel())
+        .pipe(jsCompressor())
+        .pipe(dest(`prod/js`));
+};
+
+let compressCSS = () => {
+    return src(`styles/*.css`)
+        .pipe(cleanCSS({compatibility: `ie8`}))
+        .pipe(dest(`prod/styles`));
+};
+
 let serve = () => {
     browserSync({
         notify: true,
@@ -118,3 +133,11 @@ exports.transpileJSForDev = transpileJSForDev;
 exports.compressImages = compressImages;
 exports.serve = serve;
 exports.clean = clean;
+exports.compressCSS = compressCSS;
+exports.transpileJSForProd = transpileJSForProd;
+exports.build = series(
+    compressHTML,
+    compressCSS,
+    transpileJSForProd,
+    compressImages,
+);

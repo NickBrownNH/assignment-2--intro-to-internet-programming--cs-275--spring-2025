@@ -22,5 +22,8 @@
     "gulp-stylelint": "^13.0.0",
     "gulp-uglify": "^3.0.2",
     "sass": "^1.85.1"
+  },
+  "dependencies": {
+    "gulp-clean-css": "^4.3.0"
   }
 }
