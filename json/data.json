@@ -4,7 +4,7 @@ items({
       "artist": "Dawn of Midi",
       "album": "Dysnomia",
       "cover_image": {
-        "path": "img/12392240423_1ebe6a740d_z.jpg",
+        "path": "img/123922404231ebe6a740dz.jpg",
         "width": 640,
         "height": 427,
         "alt_content": "[Dawn of Midi on stage]",
@@ -22,7 +22,7 @@ items({
       "artist": "Holly Herndon",
       "album": "PROTO",
       "cover_image": {
-        "path": "img/10835562453_30f4918d69_z.jpg",
+        "path": "img/1083556245330f4918d69z.jpg",
         "width": 640,
         "height": 427,
         "alt_content": "[Holly Herndon on stage]",
@@ -40,7 +40,7 @@ items({
       "artist": "Wu-Tang Clan",
       "album": "Enter the Wu-Tang (36 Chambers)",
       "cover_image": {
-        "path": "img/15022059070_3a7dde293e_z.jpg",
+        "path": "img/150220590703a7dde293ez.jpg",
         "width": 640,
         "height": 480,
         "alt_content": "[Wu-Tang Clan on stage]",
@@ -58,7 +58,7 @@ items({
       "artist": "Gotan Project",
       "album": "Lunático",
       "cover_image": {
-        "path": "img/60260329_b2194b7366_z.jpg",
+        "path": "img/60260329b2194b7366z.jpg",
         "width": 640,
         "height": 480,
         "alt_content": "[Gotan Project on stage]",

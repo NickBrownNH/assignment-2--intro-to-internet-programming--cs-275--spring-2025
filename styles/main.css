@@ -92,25 +92,25 @@ p {
 }
 
 .carousel-slides > div:nth-child(1) > .album-image {
-  background-image: url(../img/12392240423_1ebe6a740d_z.jpg);
+  background-image: url(../img/123922404231ebe6a740dz.jpg);
   width: var(--width-of-div);
   height: 427px;
 }
 
 .carousel-slides > div:nth-child(2) > .album-image {
-  background-image: url(../img/10835562453_30f4918d69_z.jpg);
+  background-image: url(../img/1083556245330f4918d69z.jpg);
   width: var(--width-of-div);
   height: 427px;
 }
 
 .carousel-slides > div:nth-child(3) > .album-image {
-  background-image: url(../img/15022059070_3a7dde293e_z.jpg);
+  background-image: url(../img/150220590703a7dde293ez.jpg);
   width: var(--width-of-div);
   height: 480px;
 }
 
 .carousel-slides > div:nth-child(4) > .album-image {
-  background-image: url(../img/60260329_b2194b7366_z.jpg);
+  background-image: url(../img/60260329b2194b7366z.jpg);
   width: var(--width-of-div);
   height: 480px;
 }
