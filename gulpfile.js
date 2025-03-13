@@ -88,6 +88,7 @@ let serve = () => {
                 `js`,
                 `styles`,
                 `temp`,
+                `img`,
                 `.`
             ]
         }
