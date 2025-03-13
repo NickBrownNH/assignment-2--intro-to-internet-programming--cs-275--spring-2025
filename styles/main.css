@@ -16,62 +16,56 @@ body {
 
 header {
   font-family: 'Open Sans', sans-serif;
-  line-height: 1.4;
+}
+
+h1, h2 {
+  font-weight: 600;
 }
 
 h1 {
-  font-size: 32px;
+  font-size: 2rem;
   padding-top: 38px;
   padding-bottom: 38px;
-  line-height: 38px;
-  font-weight: 600;
+  line-height: 1.1875;
 }
 
 h2 {
   text-transform: uppercase;
-  font-weight: 600;
-  line-height: 1.4;
   letter-spacing: 2px;
 }
 
-h3 {
+h1, h3 {
   padding-bottom: 38px;
+}
+
+h2, h4, h5, header, p {
+  line-height: 1.4;
 }
 
 h4 {
   font-size: 12px;
-  line-height: 1.4;
   padding-top: 5px;
   padding-bottom: 5px;
 }
 
-h5 {
+h5, p {
   text-align: left;
-  line-height: 1.4;
+}
+
+h5 {
   padding-top: 10px;
 }
 
 p {
-  text-align: left;
   font-family: 'Open Sans', sans-serif;
-  line-height: 1.4;
 }
 
-.artist-name {
-  text-decoration: none;
-}
-
-.image-credit {
-  text-decoration: none;
-}
-
-.review-credit {
+.artist-name, .image-credit, .review-credit {
   text-decoration: none;
 }
 
 .carousel {
   width: var(--width-of-div);
-  height: var(--height-of-div);
   margin-left: auto;
   margin-right: auto;
   padding-left: 20px;
@@ -79,10 +73,13 @@ p {
   overflow: hidden;
 }
 
+.album, .carousel, .carousel-slides {
+  height: var(--height-of-div);
+}
+
 .carousel-slides {
   display: flex;
   width: calc(4 * var(--width-of-div));
-  height: var(--height-of-div);
   margin-left: var(--slides-position);
   transition: margin-left .5s ease;
 }
@@ -90,31 +87,30 @@ p {
 .album {
   display: inline-block;
   width: var(--width-of-div);
-  height: var(--height-of-div);
   padding-left: 20px;
   padding-right: 20px;
 }
 
 .carousel-slides > div:nth-child(1) > .album-image {
-  background-image: url('../img/12392240423_1ebe6a740d_z.jpg');
+  background-image: url(../img/12392240423_1ebe6a740d_z.jpg);
   width: var(--width-of-div);
   height: 427px;
 }
 
 .carousel-slides > div:nth-child(2) > .album-image {
-  background-image: url('../img/10835562453_30f4918d69_z.jpg');
+  background-image: url(../img/10835562453_30f4918d69_z.jpg);
   width: var(--width-of-div);
   height: 427px;
 }
 
 .carousel-slides > div:nth-child(3) > .album-image {
-  background-image: url('../img/15022059070_3a7dde293e_z.jpg');
+  background-image: url(../img/15022059070_3a7dde293e_z.jpg);
   width: var(--width-of-div);
   height: 480px;
 }
 
 .carousel-slides > div:nth-child(4) > .album-image {
-  background-image: url('../img/60260329_b2194b7366_z.jpg');
+  background-image: url(../img/60260329_b2194b7366_z.jpg);
   width: var(--width-of-div);
   height: 480px;
 }
