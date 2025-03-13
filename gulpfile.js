@@ -6,12 +6,12 @@ const { src, dest, series, watch } = require(`gulp`),
     browserSync = require(`browser-sync`),
     babel = require(`gulp-babel`),
     jsCompressor = require(`gulp-uglify`),
-    cleanCSS = require(`gulp-clean-css`),
+    csso = require(`gulp-csso`),
     reload = browserSync.reload;
 
 let compressHTML = () => {
     return src(`*.html`)
-        .pipe(htmlCompressor({collapseWhitespace: true}))
+        .pipe(htmlCompressor({ collapseWhitespace: true }))
         .pipe(dest(`prod/`));
 };
 
@@ -20,7 +20,7 @@ let lintCSS = () => {
         .pipe(CSSLinter({
             failAfterError: false,
             reporters: [
-                {formatter: `string`, console: true}
+                { formatter: `string`, console: true }
             ]
         }));
 };
@@ -50,13 +50,12 @@ let transpileJSForDev = () => {
 
 let compressImages = async () => {
     const imageCompressor = (await import(`gulp-image`)).default;
-    return src(`img/**/*`)
+    return src(`img/**/*`, { encoding: false })
         .pipe(imageCompressor({
             optipng: [`-i 1`, `-strip all`, `-fix`, `-o7`, `-force`],
             pngquant: [`--speed=1`, `--force`, 256],
             zopflipng: [`-y`, `--lossy_8bit`, `--lossy_transparent`],
-            jpegRecompress: [`--strip`, `--quality`, `medium`, `--min`, 40,
-                `--max`, 80],
+            jpegRecompress: [`--strip`, `--quality`, `high`, `--min`, 60, `--max`, 80],
             mozjpeg: [`-optimize`, `-progressive`],
             gifsicle: [`--optimize`],
             svgo: [`--enable`, `cleanupIDs`, `--disable`, `convertColors`],
@@ -72,10 +71,36 @@ let transpileJSForProd = () => {
         .pipe(dest(`prod/js`));
 };
 
-let compressCSS = () => {
-    return src(`styles/*.css`)
-        .pipe(cleanCSS({compatibility: `ie8`}))
-        .pipe(dest(`prod/styles`));
+let compileCSSForProd = () => {
+    console.log(`Minifying CSS...`);
+    return src(`./styles/**/*.css`)
+        .pipe(csso())
+        .pipe(dest(`prod/styles`))
+        .on(`end`, () => {
+            console.log(`CSS minification complete. Files saved to prod/styles`);
+        });
+};
+
+let copyUnprocessedAssetsForProd = () => {
+    return src([
+        `*.*`,
+        `**`,
+        `!prod/**`,
+        `!prod`,
+        `!README.md`,
+        `!gulpfile.js`,
+        `!package-lock.json`,
+        `!package.json`,
+        `!node_modules/`,
+        `!node_modules/**`,
+        `!js/**/*.js`,
+        `!js/*.js`,
+        `!styles/`,
+        `!styles/**/*`,
+        `!img/**`,
+        `!*.html`
+    ], { dot: true })
+        .pipe(dest(`prod`));
 };
 
 let serve = () => {
@@ -85,11 +110,9 @@ let serve = () => {
         browser: `default`,
         server: {
             baseDir: [
-                `js`,
-                `styles`,
                 `temp`,
-                `img`,
-                `.`
+                `./`,
+                `./html`
             ]
         }
     });
@@ -135,11 +158,15 @@ exports.transpileJSForDev = transpileJSForDev;
 exports.compressImages = compressImages;
 exports.serve = serve;
 exports.clean = clean;
-exports.compressCSS = compressCSS;
+exports.compileCSSForProd = compileCSSForProd;
 exports.transpileJSForProd = transpileJSForProd;
+exports.copyUnprocessedAssetsForProd = copyUnprocessedAssetsForProd;
+exports.default = serve;
 exports.build = series(
+    clean,
     compressHTML,
-    compressCSS,
+    compileCSSForProd,
     transpileJSForProd,
     compressImages,
+    copyUnprocessedAssetsForProd
 );

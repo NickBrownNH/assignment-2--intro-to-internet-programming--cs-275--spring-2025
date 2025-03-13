@@ -7,11 +7,11 @@ let reviewCredits = document.getElementsByClassName(`review-credits`);
 
 let pos = -20;
 
-window.onload = function() {
+window.onload = () => {
     items();
 };
 
-function items(data) {
+const items = (data) => {
     updateArrows();
     for (let i = 0; i < albumNames.length; i++) {
         albumNames[i].textContent = data.albums[i].album;
@@ -33,9 +33,9 @@ function items(data) {
         );
         albumPhoto.style.backgroundImage = `url('${data.albums[i].cover_image.path}')`;
     }
-}
+};
 
-document.addEventListener(`keydown`, function(event) {
+document.addEventListener(`keydown`, (event) => {
     if (event.keyCode === 37 && pos != -2060) {
         pos = pos - 680;
         document.documentElement.style.setProperty(`--slides-position`, pos + `px`);
@@ -49,7 +49,7 @@ document.addEventListener(`keydown`, function(event) {
 });
 
 let leftArrow = document.querySelector(`nav a:nth-child(1)`);
-leftArrow.addEventListener(`click`, function() {
+leftArrow.addEventListener(`click`, () => {
     if (pos != -2060) {
         leftArrow.style.display = `inline-block`;
         pos = pos - 680;
@@ -59,7 +59,7 @@ leftArrow.addEventListener(`click`, function() {
 });
 
 let rightArrow = document.querySelector(`nav a:nth-child(2)`);
-rightArrow.addEventListener(`click`, function() {
+rightArrow.addEventListener(`click`, () => {
     if (pos != 20) {
         pos = pos + 680;
         document.documentElement.style.setProperty(`--slides-position`, pos + `px`);
@@ -67,7 +67,7 @@ rightArrow.addEventListener(`click`, function() {
     updateArrows();
 });
 
-function updateArrows() {
+const updateArrows = () => {
     if (pos == -20) {
         rightArrow.style.visibility = `hidden`;
     } else {
@@ -79,7 +79,7 @@ function updateArrows() {
     } else {
         leftArrow.style.visibility = `visible`;
     }
-}
+};
 
 for (let i = 0; i < 4; i++) {
     updateArrows();
